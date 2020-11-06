@@ -1,0 +1,37 @@
+"C:\Program Files\JetBrains\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\huber\Downloads\3dexamples\3DGraphicsExamples\src\Exercises\Indices
+-- The C compiler identification is GNU 7.2.0
+-- The CXX compiler identification is GNU 7.2.0
+-- Check for working C compiler: C:/Program Files/Haskell Platform/8.4.3/mingw/bin/gcc.exe
+-- Check for working C compiler: C:/Program Files/Haskell Platform/8.4.3/mingw/bin/gcc.exe - works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: C:/Program Files/Haskell Platform/8.4.3/mingw/bin/g++.exe
+-- Check for working CXX compiler: C:/Program Files/Haskell Platform/8.4.3/mingw/bin/g++.exe - works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+CMake Error at CMakeLists.txt:8 (add_executable):
+  Error evaluating generator expression:
+
+    $<TARGET_OBJECTS:glad>
+
+  Objects of target "glad" referenced but no such target exists.
+
+
+CMake Error at CMakeLists.txt:8 (add_executable):
+  Error evaluating generator expression:
+
+    $<TARGET_OBJECTS:glad>
+
+  Objects of target "glad" referenced but no such target exists.
+
+
+CMake Error at CMakeLists.txt:8 (add_executable):
+  No SOURCES given to target: Indices
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

@@ -1,0 +1,23 @@
+"C:\Program Files\JetBrains\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\huber\Downloads\3dexamples\3DGraphicsExamples\src\Exercises\Triangle
+-- Configuring done
+CMake Error at CMakeLists.txt:8 (add_executable):
+  Error evaluating generator expression:
+
+    $<TARGET_OBJECTS:glad>
+
+  Objects of target "glad" referenced but no such target exists.
+
+
+CMake Error at CMakeLists.txt:8 (add_executable):
+  Error evaluating generator expression:
+
+    $<TARGET_OBJECTS:glad>
+
+  Objects of target "glad" referenced but no such target exists.
+
+
+CMake Error at CMakeLists.txt:8 (add_executable):
+  No SOURCES given to target: Triangle
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
