@@ -51,12 +51,14 @@ void SimpleShapeApplication::init() {
             0.0f, 0.5f, 0.0f, 1.0, 0.3, 0.4
     };
 
+    float strength = 0.5;
+    float light[3] = {0.7, 0.2, 0.3};
+
     GLuint ubo_handle(0u);
     glGenBuffers(1,&ubo_handle);
     glBindBuffer(GL_UNIFORM_BUFFER, ubo_handle);
     glBufferData(GL_UNIFORM_BUFFER, 8 * sizeof(float), nullptr, GL_STATIC_DRAW);
-    float strength = 0.5;
-    float light[3] = {0.7, 0.2, 0.3};
+
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(float),&strength);
     glBufferSubData(GL_UNIFORM_BUFFER, 4 * sizeof(float), 3 * sizeof(float),light);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
@@ -75,7 +77,6 @@ void SimpleShapeApplication::init() {
                  GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-
     glGenVertexArrays(1, &vao_);
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, v_buffer_handle);
@@ -87,22 +88,30 @@ void SimpleShapeApplication::init() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-
     glClearColor(0.81f, 0.81f, 0.8f, 1.0f);
+
     int w, h;
     std::tie(w, h) = frame_buffer_size();
 
     glm::mat4 M(1.0f);
     auto V = glm::lookAt(glm::vec3{-0.5,1.0,2.0},glm::vec3{0.0,0.0,0.0},glm::vec3{0.0,1.0,0.0});
     auto P = glm::perspective(glm::half_pi<float>(),(float)w/h,0.1f,100.0f);
+    glm::mat4 PVM = P * V * M;
 
-    glBufferData(GL_UNIFORM_BUFFER,2*sizeof(glm::mat4), nullptr,GL_STATIC_DRAW);
+    GLuint ubo_handle_pvm(0u);
+    glGenBuffers(1, &ubo_handle_pvm);
+    glBindBuffer(GL_UNIFORM_BUFFER, ubo_handle_pvm);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), &PVM[0]);
+    glBindBuffer(GL_UNIFORM_BUFFER, 1);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 1, ubo_handle_pvm);
 
-    glBufferSubData(GL_UNIFORM_BUFFER,0,sizeof(glm::mat4),&P[0]);
-    glBufferSubData(GL_UNIFORM_BUFFER,sizeof(glm::mat4),sizeof(glm::mat4),&V[0]);
-
-    glBindBuffer(GL_UNIFORM_BUFFER,0);
-    glBindBufferBase(GL_UNIFORM_BUFFER,1,ubo_handle);
+    auto u_transformations_index = glGetUniformBlockIndex(program, "Transformations");
+    if (u_transformations_index == GL_INVALID_INDEX) {
+        std::cout << "Cannot find Transformations uniform block in program" << std::endl;
+    } else {
+        glUniformBlockBinding(program, u_transformations_index, 1);
+    }
 
     glViewport(0, 0, w, h);
 
