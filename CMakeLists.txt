@@ -33,4 +33,6 @@ add_subdirectory(src/Exercises/Uniforms)
 add_subdirectory(src/Exercises/PVM)
 add_subdirectory(src/Exercises/Pyramid)
 add_subdirectory(src/Exercises/Backfaceculling)
+add_subdirectory(src/Exercises/Resize)
+add_subdirectory(src/Exercises/Zoom)
 
