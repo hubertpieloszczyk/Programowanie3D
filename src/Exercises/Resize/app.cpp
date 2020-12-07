@@ -32,7 +32,7 @@ void SimpleShapeApplication::init() {
     }
     else
     {
-        glUniformBlockBinding(program, u_modifiers_index, 0);
+        glUniformBlockBinding(program, u_modifiers_index, 1);
     }
 
     std::vector<GLushort> indices = {
@@ -73,7 +73,7 @@ void SimpleShapeApplication::init() {
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(float),&strength);
     glBufferSubData(GL_UNIFORM_BUFFER, 4 * sizeof(float), 3 * sizeof(float),light);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo_handle);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 1, ubo_handle);
 
     GLuint v_buffer_handle;
     glGenBuffers(1, &v_buffer_handle);
@@ -115,13 +115,13 @@ void SimpleShapeApplication::init() {
     glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), &PVM[0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 1);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 1, ubo_handle_pvm);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo_handle_pvm);
 
     auto u_transformations_index = glGetUniformBlockIndex(program, "Transformations");
     if (u_transformations_index == GL_INVALID_INDEX) {
         std::cout << "Cannot find Transformations uniform block in program" << std::endl;
     } else {
-        glUniformBlockBinding(program, u_transformations_index, 1);
+        glUniformBlockBinding(program, u_transformations_index, 0);
     }
 
     std::tie(w, h) = frame_buffer_size();
@@ -145,9 +145,12 @@ void SimpleShapeApplication::init() {
 
 void SimpleShapeApplication::frame() {
     auto PVM = P_ * V_;
+    glGenBuffers(1, &u_pvm_buffer_);
     glBindBuffer(GL_UNIFORM_BUFFER, u_pvm_buffer_);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), &PVM[0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, u_pvm_buffer_);
 
     glBindVertexArray(vao_);
     glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_SHORT, nullptr);
