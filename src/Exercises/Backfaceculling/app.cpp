@@ -36,7 +36,7 @@ void SimpleShapeApplication::init() {
     }
 
     std::vector<GLushort> indices = {
-            0, 2, 1, 0, 3, 2, 5, 6, 4, 9, 8, 7, 11, 10, 12, 13, 14, 15  // wypisujemy tyle elementów ile mamy wierzchołków
+            0, 1, 2, 3, 0, 2, 5, 4, 6, 7, 9, 8, 10, 12, 11, 13, 15, 14   // wypisujemy tyle elementów ile mamy wierzchołków
     };
 
     std::vector<GLfloat> vertices = {
