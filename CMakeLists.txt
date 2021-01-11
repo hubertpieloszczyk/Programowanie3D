@@ -36,4 +36,5 @@ add_subdirectory(src/Exercises/Backfaceculling)
 add_subdirectory(src/Exercises/Resize)
 add_subdirectory(src/Exercises/Zoom)
 add_subdirectory(src/Exercises/CameraMovement)
-
+add_subdirectory(src/Exercises/Animation)
+add_subdirectory(src/Exercises/Texture)
