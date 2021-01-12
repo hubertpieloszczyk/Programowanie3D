@@ -50,7 +50,7 @@ void SimpleShapeApplication::init() {
     }
 
     camera_->perspective(glm::pi<float>()/4.0, (float)w/h, 0.1f, 100.0f);
-    camera_->look_at(glm::vec3{0.0,40.0,0.0},glm::vec3{0.0,0.0,0.0},glm::vec3{0.0,1.0,1.0});
+    camera_->look_at(glm::vec3{0.0,25.0,0.0},glm::vec3{0.0,0.0,0.0},glm::vec3{0.0,1.0,1.0});
 
 
     start_ = std::chrono::steady_clock::now();
@@ -78,8 +78,8 @@ void SimpleShapeApplication::frame() {
     pyramid_->draw(M, u_pvm_buffer_);
 
     auto moon_orbital_rotation_angle = 2.0f*glm::pi<float>()*elapsed_time/10.0f;
-    auto x_moon = 3.0f*cos(moon_orbital_rotation_angle);
-    auto z_moon = 3.0f*sin(moon_orbital_rotation_angle);
+    auto x_moon = 3.0f*sin(moon_orbital_rotation_angle);
+    auto z_moon = 3.0f*cos(moon_orbital_rotation_angle);
     auto R_moon = glm::rotate(glm::mat4(1.0f), moon_orbital_rotation_angle, glm::vec3{0, 1, 0});
     auto O_moon = glm::translate(glm::mat4(1.0f), glm::vec3{x_moon,0.0,z_moon});
     auto S_moon = glm::scale(glm::mat4(1.0f), glm::vec3{0.5f, 0.5f, 0.5f});
