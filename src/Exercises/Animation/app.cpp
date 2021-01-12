@@ -50,7 +50,7 @@ void SimpleShapeApplication::init() {
     }
 
     camera_->perspective(glm::pi<float>()/4.0, (float)w/h, 0.1f, 100.0f);
-    camera_->look_at(glm::vec3{-0.5,15.0,-15.0},glm::vec3{-0.5,-0.5,-0.5},glm::vec3{0.0,1.0,1.0});
+    camera_->look_at(glm::vec3{0.0,40.0,0.0},glm::vec3{0.0,0.0,0.0},glm::vec3{0.0,1.0,1.0});
 
 
     start_ = std::chrono::steady_clock::now();
@@ -89,9 +89,9 @@ void SimpleShapeApplication::frame() {
 
     auto satellite_orbital_rotation_angle = 2.0f*glm::pi<float>()*elapsed_time/2.0f;
     auto x_satellite = 1.5f*cos(satellite_orbital_rotation_angle);
-    auto z_satellite = 1.5f*sin(satellite_orbital_rotation_angle);
+    auto y_satellite = 1.5f*sin(satellite_orbital_rotation_angle);
     auto R_satellite = glm::rotate(glm::mat4(1.0f), satellite_orbital_rotation_angle, glm::vec3{0, 0, 1});
-    auto O_satellite = glm::translate(glm::mat4(1.0f), glm::vec3{x_satellite,0.0,z_satellite});
+    auto O_satellite = glm::translate(glm::mat4(1.0f), glm::vec3{x_satellite,y_satellite,0.0});
     auto S_satellite = glm::scale(glm::mat4(1.0f), glm::vec3{0.25f, 0.25f, 0.25f});
     auto PVM_satellite = camera_->projection() * camera_->view() * O * O_satellite * R_satellite * S_satellite;
 
