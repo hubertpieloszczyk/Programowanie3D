@@ -132,6 +132,12 @@ void SimpleShapeApplication::init() {
     P_ = glm::perspective(fov_, aspect_, near_, far_);
     V_ = glm::lookAt(glm::vec3{-0.5,1.0,2.0},glm::vec3{-0.5,-0.5,-0.5},glm::vec3{0.0,1.0,1.0});
 
+    glGenBuffers(1, &u_pvm_buffer_);
+    glBindBuffer(GL_UNIFORM_BUFFER, u_pvm_buffer_);
+    glBufferData(GL_UNIFORM_BUFFER,2*sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, u_pvm_buffer_);
+
     glViewport(0, 0, w, h);
 
     glEnable(GL_DEPTH_TEST);
@@ -145,9 +151,7 @@ void SimpleShapeApplication::init() {
 
 void SimpleShapeApplication::frame() {
     auto PVM = P_ * V_;
-    glGenBuffers(1, &u_pvm_buffer_);
     glBindBuffer(GL_UNIFORM_BUFFER, u_pvm_buffer_);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), &PVM[0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, u_pvm_buffer_);

@@ -58,6 +58,12 @@ void SimpleShapeApplication::init() {
     camera_->perspective(glm::pi<float>()/4.0, (float)w/h, 0.1f, 100.0f);
     camera_->look_at(glm::vec3{-0.5,1.0,2.0},glm::vec3{-0.5,-0.5,-0.5},glm::vec3{0.0,1.0,1.0});
 
+    glGenBuffers(1, &u_pvm_buffer_);
+    glBindBuffer(GL_UNIFORM_BUFFER, u_pvm_buffer_);
+    glBufferData(GL_UNIFORM_BUFFER,2*sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, u_pvm_buffer_);
+
     glViewport(0, 0, w, h);
     glEnable(GL_DEPTH_TEST);
 
