@@ -101,10 +101,6 @@ void SimpleShapeApplication::frame() {
     auto PVM_satellite = camera_->projection() * camera_->view() * O * O_satellite * R_satellite * S_satellite;
 
     pyramid_->draw(PVM_satellite, u_pvm_buffer_);
-
-    glBindVertexArray(vao_);
-    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid *>(0));
-    glBindVertexArray(0);
 }
 
 void SimpleShapeApplication::framebuffer_resize_callback(int w, int h) {
