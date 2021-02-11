@@ -61,7 +61,6 @@ void Pyramid::draw(glm::mat4 &PVM, GLuint u_pvm_buffer_){
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,diffuse_texture_);
 
-
     glBindVertexArray(vao_);
     glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid *>(0));
     glBindVertexArray(0);
